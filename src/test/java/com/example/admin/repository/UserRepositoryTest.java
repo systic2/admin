@@ -31,7 +31,7 @@ public class UserRepositoryTest extends AdminApplicationTests {
 
     @Test
     public void read(){
-        Optional<User> user = userRepository.findById(1L);
+        Optional<User> user = userRepository.findById(4L);
         user.ifPresent(selectUser -> {
             System.out.println("user : " + selectUser);
             System.out.println(selectUser.getEmail());
@@ -39,9 +39,9 @@ public class UserRepositoryTest extends AdminApplicationTests {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void update() {
-        Optional<User> user = userRepository.findById(1L);
+        Optional<User> user = userRepository.findById(4L);
         user.ifPresent(selectUser -> {
             selectUser.setAccount("happy");
             selectUser.setUpdatedAt(LocalDateTime.now());
@@ -53,17 +53,18 @@ public class UserRepositoryTest extends AdminApplicationTests {
 
     @Test
     public void delete() {
-        Optional<User> user = userRepository.findById(1L);
+        Optional<User> user = userRepository.findById(4L);
         assertTrue(user.isPresent()); // true
 
         user.ifPresent(selectUser -> {
             userRepository.delete(selectUser);
         });
-
-        Optional<User> deleteUser = userRepository.findById(1L); //select
-        assertTrue(deleteUser.isPresent()); // false
+        Optional<User> deleteUser = userRepository.findById(4L); //select
+        if(deleteUser.isPresent()){
+            System.out.println("데이터가 있다: "+ deleteUser.get());
+        }else{
+            System.out.println("데이터 삭제 완료");
+        }
+//        assertTrue(deleteUser.isPresent()); // false
     }
-
-
-
 }
