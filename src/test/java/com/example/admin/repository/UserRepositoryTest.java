@@ -2,6 +2,7 @@ package com.example.admin.repository;
 
 import com.example.admin.AdminApplication;
 import com.example.admin.AdminApplicationTests;
+import com.example.admin.model.entity.Item;
 import com.example.admin.model.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class UserRepositoryTest extends AdminApplicationTests {
     @Test
     public void create(){
         User user = new User();
-        user.setAccount("testUser03");
-        user.setEmail("testUser03@naver.com");
-        user.setPhoneNumber("010-3333-3333");
+        user.setAccount("testUser05");
+        user.setEmail("testUser05@naver.com");
+        user.setPhoneNumber("010-5555-5555");
         user.setCreatedAt(LocalDateTime.now());
         user.setCreatedBy("admin");
 
@@ -30,11 +31,19 @@ public class UserRepositoryTest extends AdminApplicationTests {
     }
 
     @Test
+    @Transactional
     public void read(){
-        Optional<User> user = userRepository.findById(4L);
-        user.ifPresent(selectUser -> {
-            System.out.println("user : " + selectUser);
-            System.out.println(selectUser.getEmail());
+//        Optional<User> user = userRepository.findById(1L);
+        Optional<User> user = userRepository.findByAccount("testUser03");
+        user.ifPresent(selectUser -> { // id = 1인 유저가 있을 때 어떤 상품을 구입했는지 알 수 있다.
+            selectUser.getOrderDetailList().stream().forEach(detail -> { // 주문내역을 List로 받는다.
+//                System.out.println(detail.getId());
+                Item item = detail.getItem();
+
+                System.out.println(detail.getItem());
+            });
+//            System.out.println("user : " + selectUser);
+//            System.out.println(selectUser.getEmail());
         });
     }
 
