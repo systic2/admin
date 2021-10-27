@@ -1,6 +1,5 @@
 package com.example.admin.repository;
 
-import com.example.admin.AdminApplication;
 import com.example.admin.AdminApplicationTests;
 import com.example.admin.model.entity.Item;
 import com.example.admin.model.entity.User;
